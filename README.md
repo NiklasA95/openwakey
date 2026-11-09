@@ -1,7 +1,7 @@
 # OpenWakey
 
-Control a **Soundcore Wakey** (model A3300) alarm clock from your Mac, without the Soundcore app:
-alarms, clock, display, FM radio and sleep timer, from the terminal.
+Control a **Soundcore Wakey** (model A3300) alarm clock from your macOS terminal:
+alarms, clock, display, FM radio and sleep timer.
 
 ```
 $ openwakey info
@@ -15,15 +15,13 @@ Alarms:
   1640470933  07:20  weekdays      FM 95.1 MHz     snooze 5 min x5  on   'Alarm'   <- next
 ```
 
-> Unofficial project, not affiliated with or endorsed by Anker or Soundcore. It talks to the clock
+> Unofficial project, not affiliated with or endorsed by Anker. It talks to the clock
 > using a protocol reverse engineered for interoperability; use it at your own risk.
 
 ## Requirements
 
 - A Mac with Bluetooth. Tested on macOS 27 with the system Python 3.9.
-- Python 3.9 or newer. If `python3 --version` asks you to install developer tools, accept, or run
-  `xcode-select --install`.
-- A Soundcore Wakey, paired with the Mac.
+- A Soundcore Wakey. Tested with firmware version 0.6.0.
 
 ## Install
 
@@ -41,10 +39,9 @@ to your `PATH` or install with [pipx](https://pipx.pypa.io/) instead: `pipx inst
 
 1. Put the Wakey into Bluetooth pairing mode (see its manual) and pair it in
    **System Settings → Bluetooth**. You only do this once.
-2. Close the Soundcore app on your phone, or switch off the phone's Bluetooth. The Wakey accepts only one
-   control connection at a time.
+2. Make sure the Soundcore app on your phone is not connected to the Wakey. It accepts only one control connection at a time.
 3. Run `openwakey devices`. It should list your Wakey.
-4. Run `openwakey info`. The first time, macOS asks whether your terminal app may use Bluetooth. Allow it.
+4. Run `openwakey info`. The first time, macOS may ask whether your terminal app can use Bluetooth. Allow it.
 
 ## Usage
 

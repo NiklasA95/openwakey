@@ -1,5 +1,6 @@
 import contextlib
 import io
+import time
 import unittest
 
 from openwakey import cli, protocol
@@ -141,6 +142,21 @@ class CliTest(unittest.TestCase):
         code, _, err = self.run_cli("--dry-run", "alarm-edit", "1", "--time", "7:00")
         self.assertEqual(code, 1)
         self.assertIn("--dry-run", err)
+
+    def test_clock_format(self):
+        def at(hour):
+            return time.struct_time((2026, 11, 9, hour, 5, 9, 0, 313, -1))
+
+        self.assertEqual(cli.format_clock(at(20), twelve_hour=False), "20:05:09")
+        self.assertEqual(cli.format_clock(at(20), twelve_hour=True), "8:05:09 PM")
+        self.assertEqual(cli.format_clock(at(0), twelve_hour=True), "12:05:09 AM")
+        self.assertEqual(cli.format_clock(at(12), twelve_hour=True), "12:05:09 PM")
+        self.assertEqual(cli.format_clock(at(9), twelve_hour=True), "9:05:09 AM")
+
+    def test_dry_run_sync_time_12h_reports_12h_time(self):
+        code, out, err = self.run_cli("--dry-run", "sync-time", "--12h")
+        self.assertEqual(code, 0, err)
+        self.assertRegex(out.splitlines()[1], r"^Clock set to \d{1,2}:\d{2}:\d{2} [AP]M \(12-hour display\)\.$")
 
     def test_days(self):
         self.assertEqual(cli.parse_days("mon,wed,sun"), protocol.MON | protocol.WED | protocol.SUN)

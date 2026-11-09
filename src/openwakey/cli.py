@@ -228,9 +228,19 @@ def cmd_info(client, args) -> None:
         print_info(client.name, info)
 
 
+def format_clock(moment: time.struct_time, twelve_hour: bool) -> str:
+    if not twelve_hour:
+        return f"{moment.tm_hour:02d}:{moment.tm_min:02d}:{moment.tm_sec:02d}"
+    hour = moment.tm_hour % 12 or 12
+    suffix = "AM" if moment.tm_hour < 12 else "PM"
+    return f"{hour}:{moment.tm_min:02d}:{moment.tm_sec:02d} {suffix}"
+
+
 def cmd_sync_time(client, args) -> None:
-    send(client, protocol.sync_time(is24h=not args.twelve_hour), "set time")
-    print(f"Clock set to {time.strftime('%H:%M:%S')} ({'12' if args.twelve_hour else '24'}-hour display).")
+    now = time.time()
+    send(client, protocol.sync_time(is24h=not args.twelve_hour, when=now), "set time")
+    display = "12-hour" if args.twelve_hour else "24-hour"
+    print(f"Clock set to {format_clock(time.localtime(now), args.twelve_hour)} ({display} display).")
 
 
 def cmd_display(client, args) -> None:
