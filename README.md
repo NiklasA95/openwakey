@@ -28,7 +28,7 @@ Alarms:
 ## Install
 
 ```sh
-git clone <this repository> openwakey
+git clone https://github.com/NiklasA95/openwakey.git
 cd openwakey
 python3 -m venv .venv
 .venv/bin/pip install .
