@@ -1,0 +1,50 @@
+name: Bug report
+description: A command fails, or the Wakey does not do what the command says
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you run, what did the Wakey do, and what did you expect instead?
+      placeholder: "`openwakey brightness 5` reports success, but the display stays dim."
+    validations:
+      required: true
+  - type: textarea
+    id: verbose-output
+    attributes:
+      label: Output with -v
+      description: Run the same command with `-v` (for example `openwakey -v brightness 5`) and paste everything it prints.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The Wakey's state before the command matters (for example "brightness was already auto").
+      placeholder: |
+        1. openwakey brightness 3
+        2. openwakey brightness auto
+  - type: input
+    id: firmware
+    attributes:
+      label: Wakey firmware
+      description: Shown on the first line of `openwakey info`.
+      placeholder: "0.6.0"
+    validations:
+      required: true
+  - type: input
+    id: openwakey-version
+    attributes:
+      label: OpenWakey version
+      description: Output of `openwakey --version`.
+      placeholder: "openwakey 0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: macos-version
+    attributes:
+      label: macOS and Python version
+      description: From `sw_vers -productVersion` and `python3 --version`.
+      placeholder: "macOS 27.0, Python 3.9.6"
