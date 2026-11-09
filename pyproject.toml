@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openwakey"
+description = "Control a Soundcore Wakey alarm clock from a Mac over Bluetooth"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["pyobjc-framework-IOBluetooth>=10; sys_platform == 'darwin'"]
+dynamic = ["version"]
+classifiers = [
+    "Environment :: Console",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Topic :: Home Automation",
+]
+
+[project.scripts]
+openwakey = "openwakey.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "openwakey.__version__" }
